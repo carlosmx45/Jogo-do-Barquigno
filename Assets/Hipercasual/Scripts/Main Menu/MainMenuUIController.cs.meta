@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 1efaa32d1b8478c4fb5455e7b3dcf79e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - UI_Menu: {instanceID: 0}
+  - UI_HUD: {instanceID: 0}
+  - UI_Config: {instanceID: 0}
+  - UI_ExitConfirm: {instanceID: 0}
+  - UI_Shop: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

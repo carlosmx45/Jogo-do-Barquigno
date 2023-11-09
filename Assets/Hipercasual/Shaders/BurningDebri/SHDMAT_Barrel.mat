@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SHDMAT_Barrel
+  m_Shader: {fileID: 4800000, guid: 0a25cd4c32ce40b448bb3e6ed508a1ee, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainMaterial:
+        m_Texture: {fileID: 2800000, guid: fcd431e5c0b795244a3772f1b9dcc0b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SecondaryMaterial:
+        m_Texture: {fileID: 2800000, guid: c0263a23283a0f74f9e27e91b4297dfe, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _m:
+        m_Texture: {fileID: 2800000, guid: d62d5fba00e1dcd478d8d60875ac2218, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _FireEmission: 2
+    - _NoiseSize: 20
+    - _Progress: 1
+    - _Width: 0.175
+    - __dirty: 0
+    m_Colors: []
+  m_BuildTextureStacks: []

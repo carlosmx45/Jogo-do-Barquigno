@@ -1,0 +1,4 @@
+repository "MovilesHipercasual1@BlackVikingVI@cloud"
+  path "/"
+    br "/main"
+    co "/main"

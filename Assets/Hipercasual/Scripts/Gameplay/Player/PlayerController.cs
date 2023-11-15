@@ -34,6 +34,9 @@ public class PlayerController : MonoBehaviour
     public Transform cannonPointL;
     public Transform cannonPointF;
     public float bulletSpeed = 10;
+    public float shootingCoolDown = 8f;
+    public float shootingDamage;
+    public bool shotOnCooldown = false;
 
     // Start is called before the first frame update
     void Start()
@@ -96,22 +99,35 @@ public class PlayerController : MonoBehaviour
 
     public void ShootEnemy()
     {
-        //Cannon R
-        Instantiate(explosion, cannonPointR.position, cannonPointR.rotation);
-        Instantiate(ExplosionSfx, cannonPointR.position, cannonPointR.rotation);
-        var bulletR = Instantiate(bulletPrefab, cannonPointR.position, cannonPointR.rotation);
-        bulletR.GetComponent<Rigidbody>().velocity = cannonPointR.forward * bulletSpeed;
+        if (shotOnCooldown == false)
+        {
+            //Cannon R
+            Instantiate(explosion, cannonPointR.position, cannonPointR.rotation);
+            Instantiate(ExplosionSfx, cannonPointR.position, cannonPointR.rotation);
+            var bulletR = Instantiate(bulletPrefab, cannonPointR.position, cannonPointR.rotation);
+            bulletR.GetComponent<Rigidbody>().velocity = cannonPointR.forward * bulletSpeed;
 
-        //Cannon L
-        Instantiate(explosion, cannonPointL.position, cannonPointL.rotation);
-        var bulletL = Instantiate(bulletPrefab, cannonPointL.position, cannonPointL.rotation);
-        bulletL.GetComponent<Rigidbody>().velocity = cannonPointL.forward * bulletSpeed;
+            //Cannon L
+            Instantiate(explosion, cannonPointL.position, cannonPointL.rotation);
+            var bulletL = Instantiate(bulletPrefab, cannonPointL.position, cannonPointL.rotation);
+            bulletL.GetComponent<Rigidbody>().velocity = cannonPointL.forward * bulletSpeed;
 
-        //Cannon L
-        Instantiate(explosion, cannonPointF.position, cannonPointF.rotation);
-        var bulletF = Instantiate(bulletPrefab, cannonPointF.position, cannonPointF.rotation);
-        bulletF.GetComponent<Rigidbody>().velocity = cannonPointF.forward * bulletSpeed;
-        Debug.Log("Shoot");
+            //Cannon L
+            Instantiate(explosion, cannonPointF.position, cannonPointF.rotation);
+            var bulletF = Instantiate(bulletPrefab, cannonPointF.position, cannonPointF.rotation);
+            bulletF.GetComponent<Rigidbody>().velocity = cannonPointF.forward * bulletSpeed;
+            Debug.Log("Shoot");
+
+            shotOnCooldown = true;
+
+            StartCoroutine(WaitforCooldown());
+        }
+        
     }
 
+    private IEnumerator WaitforCooldown()
+    {
+        yield return new WaitForSeconds(shootingCoolDown);
+        shotOnCooldown = false;
+    }
 }

@@ -36,12 +36,13 @@ public class AroundSpawner : MonoBehaviour
                 case "EnemySpawnPoints": 
                     break;
                 default:
-                    int rand = Random.Range(1,3);
+                    int rand = Random.Range(1,4);
                     //Debug.Log(rand);
                     switch (rand)
                     {
-                        case 1: Instantiate(islandPrefab, child.transform.position, child.transform.rotation); /*Debug.Log("SpawnIsland");*/ break;
+                        case 1: Debug.Log("Nothing Happened"); break;//SInstantiate(islandPrefab, child.transform.position, child.transform.rotation); /*Debug.Log("SpawnIsland");*/ break;
                         case 2: Instantiate(coinPrefab, child.transform.position, child.transform.rotation); /*Debug.Log("SpawnCoin");*/ break;
+                        case 3: Instantiate(coinPrefab, child.transform.position, child.transform.rotation); /*Debug.Log("SpawnCoin");*/ break;
                     }
                     break;
             }

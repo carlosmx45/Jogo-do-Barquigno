@@ -54,6 +54,7 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        AdsManager.Instance.interstitialAds.ShowInterstitialAd();
         Time.timeScale = 1f;
         Debug.Log("Quitting Game...");
         SceneManager.LoadScene("BaseScene");

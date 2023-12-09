@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PrintMoneyScript : MonoBehaviour
 {
+    [Header("Invetnarios")]
     [Tooltip("Referencia a de texto de Dinero")]
     [SerializeField] Text textDinero;
     [Tooltip("Referencia a de texto de Ron")]
@@ -21,7 +22,7 @@ public class PrintMoneyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        textDinero.text = "" + PlayerPrefs.GetInt("savedScore");
+        textDinero.text = "$" + PlayerPrefs.GetInt("savedScore");
         textRon.text = "" + PlayerPrefs.GetInt("savedRum");
         textGente.text = "" + PlayerPrefs.GetInt("savedPeople");
     }

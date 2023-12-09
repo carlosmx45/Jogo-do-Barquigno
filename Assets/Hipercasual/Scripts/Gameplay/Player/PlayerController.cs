@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("UI Reference")]
     public GameObject GameOverUI;
+    public GameObject InGameUI;
     [SerializeField] PauseMenu PauseUI;
     [SerializeField] ScoreManager _ScoreManager;
     [SerializeField] HealthBar healthBar;
@@ -65,6 +67,36 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(0, value * 2, 0, Space.Self);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        switch (other.tag)
+        {
+            case "KillingFog":
+                Debug.Log("ded");
+                health--;
+                MeMori();
+                break;
+            case "LightHouse":
+                SceneManager.LoadScene("BaseScene");
+                //PauseUI.Pause();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void MeMori()
+    {
+        if (health == 0)
+        {
+            InGameUI.SetActive(false);
+            Destroy(this.gameObject);
+            //PauseUI.Pause();
+            GameOverUI.SetActive(true);
+            _ScoreManager.GameEndProcess();
+        }
+    }
+
     void OnCollisionEnter(Collision collisionInfo)
     {
         switch (collisionInfo.gameObject.tag)
@@ -72,13 +104,7 @@ public class PlayerController : MonoBehaviour
             case "Enemy":
                 health --;
                 healthBar.SetHealth(health);
-                if (health == 0)
-                {
-                    Destroy(this.gameObject);
-                    //PauseUI.Pause();
-                    GameOverUI.SetActive(true);
-                    _ScoreManager.GameEndProcess();
-                }
+                MeMori();
                 break;
 
             case "Coin": _ScoreManager.IncreaseScore("gameScore", 100);
@@ -90,9 +116,10 @@ public class PlayerController : MonoBehaviour
 
             case "Bullet":
                 health --;
+                MeMori();
                 break;
 
-            default: //Debug.Log(collisionInfo.gameObject.tag);
+            default: Debug.Log(collisionInfo.gameObject.tag);
                 break;
         }
     }

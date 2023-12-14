@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5499731464649447846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1217850396634066715}
+  - component: {fileID: 7150967844398618549}
+  - component: {fileID: 5782120586679835874}
+  - component: {fileID: 7496373731257235963}
+  - component: {fileID: 5401974187592359447}
+  - component: {fileID: 3614047403254660265}
+  - component: {fileID: 8051747639109948183}
+  m_Layer: 0
+  m_Name: GeneralScriptController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1217850396634066715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5499731464649447846}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7150967844398618549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5499731464649447846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1efaa32d1b8478c4fb5455e7b3dcf79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UI_Menu: {fileID: 0}
+  UI_Shop: {fileID: 0}
+  UI_Inventory: {fileID: 0}
+  UI_Achievements: {fileID: 0}
+  UI_Expeditions: {fileID: 0}
+  UI_Pub: {fileID: 0}
+  UI_ExitConfirm: {fileID: 0}
+--- !u!114 &5782120586679835874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5499731464649447846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2236e5ad3be6d274eb485ade9a60dfcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterInfo: {fileID: 11400000, guid: 3eb95feb43dbca74781f8adf9589f525, type: 2}
+  imprimirDinero: {fileID: 0}
+--- !u!114 &7496373731257235963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5499731464649447846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86da00cd043461940bdb9686528ef920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UI_Menu: {fileID: 0}
+  UI_Shop: {fileID: 0}
+  UI_Inventory: {fileID: 0}
+  UI_Achievements: {fileID: 0}
+  UI_Expeditions: {fileID: 0}
+  UI_Pub: {fileID: 0}
+  UI_ExitConfirm: {fileID: 0}
+  apagalo: 0
+--- !u!114 &5401974187592359447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5499731464649447846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2645ff0c0a6439b40b3b6a21459b5b24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theDisplay: {fileID: 0}
+  hour: 0
+  minutes: 0
+--- !u!114 &3614047403254660265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5499731464649447846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f9b46fb507f1a0448ba12d9350fac05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8051747639109948183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5499731464649447846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e8a7cec5724504494085a2d0da0072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expeditionButton1: {fileID: 0}
+  expeditionButton2: {fileID: 0}
+  expeditionButton3: {fileID: 0}
+  timer1: 0
+  timer1Text: {fileID: 0}
+  timer2: 0
+  timer2Text: {fileID: 0}
+  timer3: 0
+  timer3Text: {fileID: 0}
+  expedition1Completed: 0
+  expedition2Completed: 0
+  expedition3Completed: 0

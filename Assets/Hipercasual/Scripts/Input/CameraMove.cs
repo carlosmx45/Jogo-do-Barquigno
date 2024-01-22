@@ -40,9 +40,9 @@ public class CameraMove : MonoBehaviour
         {
             Camera.main.transform.position = Origin - Difference;
             Camera.main.transform.position = new Vector3(
-            Mathf.Clamp(Camera.main.transform.position.x, -141, -130),
-            Mathf.Clamp(Camera.main.transform.position.y, 20, 20),
-            Mathf.Clamp(Camera.main.transform.position.z, -14, -4));
+            Mathf.Clamp(Camera.main.transform.position.x, -138, -134),
+            Mathf.Clamp(Camera.main.transform.position.y, 39, 39),
+            Mathf.Clamp(Camera.main.transform.position.z, -29, -25));
         }
     }
 }

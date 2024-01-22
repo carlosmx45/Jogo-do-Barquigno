@@ -10,12 +10,18 @@ public class AroundSpawner : MonoBehaviour
     [SerializeField] GameObject islandPrefab;
     [SerializeField] GameObject coinPrefab;
 
+    [SerializeField] GameObject enemyPrefab;
+
     [SerializeField] byte spawnDelay;
     [SerializeField] GameObject player;
+
+    public int enemyInGame;
+    public int maxEnemyInGame = 10;
 
     // Start is called before the first frame update
     void Start()
     {
+        enemyInGame = 1;
         enemySpawnPoints = rootGmObj.GetComponentsInChildren<Transform>();
 
         spawnDelay = 5;
@@ -36,13 +42,23 @@ public class AroundSpawner : MonoBehaviour
                 case "EnemySpawnPoints": 
                     break;
                 default:
-                    int rand = Random.Range(1,4);
+                    int rand = Random.Range(1,6);
                     //Debug.Log(rand);
                     switch (rand)
                     {
                         case 1: Debug.Log("Nothing Happened"); break;//SInstantiate(islandPrefab, child.transform.position, child.transform.rotation); /*Debug.Log("SpawnIsland");*/ break;
-                        case 2: Instantiate(coinPrefab, child.transform.position, child.transform.rotation); /*Debug.Log("SpawnCoin");*/ break;
-                        case 3: Instantiate(coinPrefab, child.transform.position, child.transform.rotation); /*Debug.Log("SpawnCoin");*/ break;
+                        case 2: Instantiate(coinPrefab, child.transform.position, child.transform.rotation); Debug.Log("SpawnCoin"); break;
+                        case 3: Debug.Log("Nothing Happened"); break;
+                        case 4:
+                            if (enemyInGame < maxEnemyInGame)
+                            {
+                                Instantiate(enemyPrefab, child.transform.position, child.transform.rotation);
+                                enemyInGame++;
+                                Debug.Log("EnemySpawned");
+                            }
+                            else Debug.Log("MaxEnemyInGame");
+                            break;
+                        case 5: Debug.Log("Nothing Happened"); break;
                     }
                     break;
             }

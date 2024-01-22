@@ -8,11 +8,13 @@ public class CameraTrack : MonoBehaviour
     public Transform target;
     [Tooltip("How offset will the camera be to the target")]
     public Vector3 offset = new Vector3(0, -1, 0);
-    
-    /// <summary> 
-    /// Update is called once per frame 
-    /// </summary> 
-    private void Update()
+
+
+    void Start()
+    {
+    }
+
+    void Update()
     {
         // Check if target is a valid object 
         if (target != null)

@@ -29,7 +29,6 @@ public class MenuRayCastController : MonoBehaviour
     [Tooltip("Referencia a interfaz de confirmacion de salida")]
     [SerializeField] GameObject UI_ExitConfirm;
 
-    bool isSelected = false;
 
     public bool apagalo;
 
@@ -64,7 +63,6 @@ public class MenuRayCastController : MonoBehaviour
                 UI_Pub.SetActive(false);
                 UI_ExitConfirm.SetActive(true);
                 apagalo = true;
-                isSelected = true;
                 Debug.Log("Active Exit Confirm UI Panel");
             }
             else if(Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Store"))
@@ -77,7 +75,6 @@ public class MenuRayCastController : MonoBehaviour
                 UI_Pub.SetActive(false);
                 UI_ExitConfirm.SetActive(false);
                 apagalo = true;
-                isSelected = true;
                 Debug.Log("Active Shop UI Panel");
             }
             else if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("SafeBox"))
@@ -90,7 +87,6 @@ public class MenuRayCastController : MonoBehaviour
                 UI_Pub.SetActive(false);
                 UI_ExitConfirm.SetActive(false);
                 apagalo = true;
-                isSelected = true;
                 Debug.Log("Active Inventory UI Panel");
             }
             else if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("CaptainHouse"))
@@ -103,7 +99,6 @@ public class MenuRayCastController : MonoBehaviour
                 UI_Pub.SetActive(false);
                 UI_ExitConfirm.SetActive(false);
                 apagalo = true;
-                isSelected = true;
                 Debug.Log("Active Achievements UI Panel");
             }
             else if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("LightHouse"))
@@ -116,7 +111,6 @@ public class MenuRayCastController : MonoBehaviour
                 UI_Pub.SetActive(false);
                 UI_ExitConfirm.SetActive(false);
                 apagalo = true;
-                isSelected = true;
                 Debug.Log("Active Expeditions UI Panel");
             }
             else if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Pub"))
@@ -129,7 +123,6 @@ public class MenuRayCastController : MonoBehaviour
                 UI_Pub.SetActive(true);
                 UI_ExitConfirm.SetActive(false);
                 apagalo = true;
-                isSelected = true;
                 Debug.Log("Active Expeditions UI Panel");
             }
         }

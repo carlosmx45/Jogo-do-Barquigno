@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +17,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int health;
     [SerializeField] int attackSpeed;
     [SerializeField] float movementSpeed;
+    [SerializeField] float maxSpeed;
+    [SerializeField] float rotationSpeed;
 
     [Header("UI Reference")]
     public GameObject GameOverUI;
@@ -23,11 +26,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PauseMenu PauseUI;
     [SerializeField] ScoreManager _ScoreManager;
     [SerializeField] HealthBar healthBar;
+    [SerializeField] GameObject aimButtonYes;
+    [SerializeField] GameObject aimButtonNo;
+    [SerializeField] GameObject normalShootingButton;
+    [SerializeField] GameObject aimingShootingButton;
+    [SerializeField] GameObject repairButton;
     
     [Header("FX")]
     public GameObject CoinParticle;
     public GameObject CoinSfx;
     public GameObject ExplosionSfx;
+    public GameObject RepairdedSfx;
 
     [Header("ShootingSystem")]
     public GameObject bulletPrefab;
@@ -35,10 +44,23 @@ public class PlayerController : MonoBehaviour
     public Transform cannonPointR;
     public Transform cannonPointL;
     public Transform cannonPointF;
+    public Transform aimSpawnPoint;
     public float bulletSpeed = 10;
-    public float shootingCoolDown = 8f;
+    public float shootingCoolDown;
     public float shootingDamage;
     public bool shotOnCooldown = false;
+
+    [Header("RepairSystem")]
+    public float repairingCooldown;
+    public bool isRepairing;
+    public int personel;
+
+    public bool isTurningRight;
+    public bool isTurningLeft;
+
+    public bool isAiming;
+    public GameObject aimCamera;
+    public GameObject freeCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -47,24 +69,49 @@ public class PlayerController : MonoBehaviour
         healthBar.SetMaxHealth(health);
         attackSpeed = playerStats.baseAttackSpeed; //+ shop upgrade
         movementSpeed = playerStats.baseMovementSpeed;//+ shop upgrade
+        rotationSpeed = playerStats.baseRotationSpeed;
 
-        input = GetComponent<PlayerInput>();  
+        maxSpeed = movementSpeed + 1;
+
+        input = GetComponent<PlayerInput>();
+
+        isAiming = false;
+        isRepairing = false;
+
+        shootingCoolDown = 16 - (PlayerPrefs.GetInt("savedPeople") / 2);
+
+        personel = PlayerPrefs.GetInt("savedPeople");
+        repairingCooldown = 45 - personel;
+
+        //rb.AddRelativeForce(Vector3.forward * movementSpeed);
     }
 
-    /// <summary>
-    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
-    /// </summary>
+    private void Update()
+    {
+        //KeyboardAndGamepad();
+        int randomPeopleLost = Random.Range(0, 5);
+
+        if (isTurningLeft)
+        {
+            transform.Rotate(0f, rotationSpeed * 0 - rotationSpeed * Time.deltaTime, 0f, Space.Self);
+        }
+        if (isTurningRight)
+        {
+            transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f, Space.Self);
+        }
+
+        Repairing();
+    }
+
     void FixedUpdate()
     {
             //ForwardMovement
-            rb.AddRelativeForce(Vector3.forward * movementSpeed);
             rb.velocity = (transform.forward * movementSpeed);
             rb.velocity.Normalize();
 
             //RotateMovement
-            float value = input.actions["Move"].ReadValue<float>();
-
-            transform.Rotate(0, value * 2, 0, Space.Self);
+            //float value = input.actions["Move"].ReadValue<float>();
+            //transform.Rotate(0, value * 2, 0, Space.Self);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -77,8 +124,21 @@ public class PlayerController : MonoBehaviour
                 MeMori();
                 break;
             case "LightHouse":
-                SceneManager.LoadScene("BaseScene");
+                SceneManager.LoadScene("TrailerBase");
                 //PauseUI.Pause();
+                break;
+            case "Coin":
+                _ScoreManager.IncreaseScore("gameScore", 100);
+                health++;
+                Destroy(other.gameObject);
+                Instantiate(CoinParticle, this.transform.position, this.transform.rotation);
+                Instantiate(CoinSfx, this.transform.position, this.transform.rotation);
+                break;
+            case "EnemyBullet":
+                health--;
+                Instantiate(explosion, this.transform.position, this.transform.rotation);
+                Instantiate(ExplosionSfx, this.transform.position, this.transform.rotation);
+                MeMori();
                 break;
             default:
                 break;
@@ -101,12 +161,6 @@ public class PlayerController : MonoBehaviour
     {
         switch (collisionInfo.gameObject.tag)
         {
-            case "Enemy":
-                health --;
-                healthBar.SetHealth(health);
-                MeMori();
-                break;
-
             case "Coin": _ScoreManager.IncreaseScore("gameScore", 100);
                 health ++;
                 Destroy(collisionInfo.gameObject);
@@ -114,8 +168,10 @@ public class PlayerController : MonoBehaviour
                 Instantiate(CoinSfx, this.transform.position, this.transform.rotation);
                 break;
 
-            case "Bullet":
-                health --;
+            case "EnemyBullet":
+                health--;
+                Instantiate(explosion, this.transform.position, this.transform.rotation);
+                Instantiate(ExplosionSfx, this.transform.position, this.transform.rotation);
                 MeMori();
                 break;
 
@@ -146,11 +202,160 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Shoot");
 
             shotOnCooldown = true;
-
             StartCoroutine(WaitforCooldown());
         }
-        
     }
+
+    public void Acelerar()
+    {
+        if (movementSpeed != maxSpeed)
+        {
+            movementSpeed ++;
+        }
+    }
+
+    public void Frenar()
+    {
+        if (movementSpeed > 0)
+        {
+            movementSpeed --;
+        }
+    }
+
+    public void RightDown()
+    {
+        isTurningRight = true;
+    }
+    public void RightUp()
+    {
+        isTurningRight = false;
+    }
+    public void LeftDown()
+    {
+        isTurningLeft = true;
+    }
+    public void LeftUp()
+    {
+        isTurningLeft = false;
+    }
+
+    public void Repair()
+    {
+        if (isRepairing == false)
+        {
+            isRepairing = true;
+        }
+    }
+
+    public void Repairing()
+    {
+        if(isRepairing == true)
+        {
+            isAiming = false;
+            freeCamera.SetActive(true);
+            aimCamera.SetActive(false);
+            aimButtonNo.SetActive(false);
+            aimButtonYes.SetActive(false);
+            normalShootingButton.SetActive(false);
+            aimingShootingButton.SetActive(false);
+            repairButton.SetActive(false);
+
+            if (repairingCooldown > 1)
+            {
+                repairingCooldown -= Time.deltaTime;
+                health++;
+            }
+            else if(repairingCooldown < 1)
+            {
+                isRepairing = false;
+                freeCamera.SetActive(true);
+                aimCamera.SetActive(false);
+                aimButtonNo.SetActive(false);
+                aimButtonYes.SetActive(true);
+                normalShootingButton.SetActive(true);
+                aimingShootingButton.SetActive(false);
+                Instantiate(RepairdedSfx, this.transform.position, this.transform.rotation);
+            }
+        }
+    }
+
+    public void AimYes()
+    {
+        Debug.Log("apuntado");
+        isAiming = true;
+        freeCamera.SetActive(false);
+        aimCamera.SetActive(true);
+        aimButtonYes.SetActive(false);
+        aimButtonNo.SetActive(true);
+        normalShootingButton.SetActive(false);
+        aimingShootingButton.SetActive(true);
+    }
+
+    public void AimNo()
+    {
+        Debug.Log("desapuntado");
+        isAiming = false;
+        freeCamera.SetActive(true);
+        aimCamera.SetActive(false);
+        aimButtonNo.SetActive(false);
+        aimButtonYes.SetActive(true);
+        normalShootingButton.SetActive(true);
+        aimingShootingButton.SetActive(false);
+    }
+
+    public void AimShoot()
+    {
+        if (shotOnCooldown == false)
+        {
+            Instantiate(explosion, aimSpawnPoint.position, aimSpawnPoint.rotation);
+            Instantiate(ExplosionSfx, aimSpawnPoint.position, aimSpawnPoint.rotation);
+            var aimBullet = Instantiate(bulletPrefab, aimSpawnPoint.position, aimSpawnPoint.rotation);
+            aimBullet.GetComponent<Rigidbody>().velocity = aimSpawnPoint.forward * bulletSpeed;
+            Debug.Log("Aimed Shoot");
+
+            shotOnCooldown = true;
+            StartCoroutine(WaitforCooldown());
+        }
+    }
+
+    /*public void KeyboardAndGamepad()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            LeftDown();
+        }
+        else LeftUp();
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            RightDown();
+        }
+        else RightUp();
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Acelerar();
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Frenar();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) & isAiming == false)
+        {
+            AimYes();
+        }
+        else if(Input.GetKeyDown(KeyCode.LeftShift) & isAiming == true)
+        {
+            AimNo();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && isAiming == true)
+        {
+            AimShoot();
+        }
+    }*/
 
     private IEnumerator WaitforCooldown()
     {

@@ -6,10 +6,9 @@ public class EnemyController : MonoBehaviour
 {
     [Tooltip("Reference to the player's rigidbody")]
     [SerializeField] Rigidbody rb;
-
     [SerializeField] CharacterInfo enemyStats;
-    
     [SerializeField] float movementSpeed;
+
     void Start()
     {
         movementSpeed = enemyStats.baseMovementSpeed;

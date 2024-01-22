@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7033140410367279665}
   - component: {fileID: 3872206093691825615}
   - component: {fileID: 5806559208723368371}
-  - component: {fileID: -3378138396172285366}
+  - component: {fileID: -1019923998231432867}
   m_Layer: 3
   m_Name: EnemyInstance
   m_TagString: Enemy
@@ -144,7 +144,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-3378138396172285366
+--- !u!114 &-1019923998231432867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,17 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d789fdf21e66acb448691b96cae54f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Explosion: {fileID: 0}
-  debris: {fileID: 0}
-  Sfx: {fileID: 0}
-  rb: {fileID: 0}
-  enemyStats: {fileID: 0}
-  player: {fileID: 0}
-  health: 0
-  attackSpeed: 0
-  movementSpeed: 0
-  TakingDamage_IsRunning: 0
-  aroundSpawner: {fileID: 0}
+  rb: {fileID: 1201110152336580303}
+  enemyStats: {fileID: 11400000, guid: 450961621c5e2a44683e34a4f0d021f8, type: 2}
+  movementSpeed: 1
 --- !u!1 &2170891900075215526
 GameObject:
   m_ObjectHideFlags: 0
